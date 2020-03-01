@@ -21,17 +21,14 @@ export class FormModalComponent implements OnInit {
   }
 
 
-  closeModal() {
-    this.activeModal.close('Modal Closed');
-  }
 
   ngOnInit(): void {
   }
 
   private createForm() {
     this.myForm = this.formBuilder.group({
-      username: '',
-      password: ''
+      name: '',
+      amount: ''
     });
   }
   private submitForm() {

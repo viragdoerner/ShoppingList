@@ -14,9 +14,10 @@ export class FormModalComponent implements OnInit {
   myForm: FormGroup;
 
   constructor(
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private formBuilder: FormBuilder
   ) {
-
+    this.createForm();
   }
 
 
@@ -25,6 +26,16 @@ export class FormModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  private createForm() {
+    this.myForm = this.formBuilder.group({
+      username: '',
+      password: ''
+    });
+  }
+  private submitForm() {
+    this.activeModal.close(this.myForm.value);
   }
 
 }

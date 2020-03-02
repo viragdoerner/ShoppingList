@@ -19,20 +19,20 @@ export class FormModalComponent implements OnInit {
   ) {
     this.createForm();
   }
-
+  public submitForm() {
+    this.activeModal.close(this.myForm.value);
+  }
 
 
   ngOnInit(): void {
   }
 
-  private createForm() {
+  public createForm() {
     this.myForm = this.formBuilder.group({
       name: '',
       amount: ''
     });
   }
-  private submitForm() {
-    this.activeModal.close(this.myForm.value);
-  }
+
 
 }

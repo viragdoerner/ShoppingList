@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { products } from '../products';
+//import { products } from '../products';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Item} from "./model/item";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -14,28 +14,30 @@ import {FormModalComponent} from "../form-modal/form-modal.component";
 export class ProductListComponent implements OnInit{
   validatingForm: FormGroup;
 
- // products: Item[] = [];
+  //products = products;
+  products: Item[] = [];
+  private productsUrl = 'api/items';  // URL to web api
   constructor(
     private http: HttpClient,
     private modalService: NgbModal) { }
-  products = products;
-  private productsUrl = 'api/items';  // URL to web api
+
+
 
 
   check() {
     window.alert('The items status has changed!');
     }
-/*    public getAllItems(){
-      let url = "http://localhost:8080/items";
+    public getAllItems(){
+      let url = "https://cors-anywhere.herokuapp.com/http://localhost:8080/items";
       this.http.get<Item[]>(url).subscribe(
          res => {
           this.products = res;
         },
          err => {
-          alert("an error has occured")
+
         }
      );
-    }*/
+    }
 
 
   openFormModal() {
@@ -49,7 +51,7 @@ export class ProductListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    //this.getAllItems();
+    this.getAllItems();
   }
 
   /** GET items from the server

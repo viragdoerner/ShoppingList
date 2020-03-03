@@ -12,5 +12,4 @@ public class RestAppApplication {
 
 		SpringApplication.run(RestAppApplication.class, args);
 	}
-
 }

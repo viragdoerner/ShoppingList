@@ -5,6 +5,7 @@ import {Item} from "./model/item";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {FormModalComponent} from "../form-modal/form-modal.component";
+import {ApiService} from "../shared/api.service";
 
 @Component({
   selector: 'app-product-list',
@@ -18,26 +19,35 @@ export class ProductListComponent implements OnInit{
   products: Item[] = [];
   private productsUrl = 'api/items';  // URL to web api
   constructor(
-    private http: HttpClient,
+    private apiService : ApiService,
     private modalService: NgbModal) { }
 
 
 
 
-  check() {
-    window.alert('The items status has changed!');
-    }
+  updateItem(item : Item) {
+    //window.alert('The items status has changed!');
+    this.apiService.updateItem(item).subscribe(
+      res => {
+        //location.reload();
+      },
+      err => {
+        alert(" put error");
+      }
+    );
+  }
+
     public getAllItems(){
-      let url = "https://cors-anywhere.herokuapp.com/http://localhost:8080/items";
-      this.http.get<Item[]>(url).subscribe(
+      this.apiService.getAllItems().subscribe(
          res => {
           this.products = res;
         },
          err => {
-
+           alert(" get error");
         }
      );
     }
+
 
 
   openFormModal() {
@@ -45,6 +55,17 @@ export class ProductListComponent implements OnInit{
 
     modalRef.result.then((result) => {
       console.log(result);
+      //el kéne kuldeni backendnek
+      this.apiService.postItem(result).subscribe(
+        res => {
+          location.reload();
+        },
+        err => {
+          alert(" post error");
+        }
+      )
+
+
     }).catch((error) => {
       console.log(error);
     });
